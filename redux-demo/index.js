@@ -1,11 +1,13 @@
 const { createStore, bindActionCreators, combineReducers } = require("redux");
 
+// action types
 const CAKE_ORDERED = "CAKE_ORDERED";
 const RESTOCK_CAKE = "CAKE_RESTOCK";
 
 const ICE_CREAM_ORDER = "ice_cream_ordered";
 const RESTOCK_ICE_CREAM = "ice_cream_restored";
 
+// action creators
 const orderCake = () => {
   return {
     type: CAKE_ORDERED,
@@ -58,7 +60,7 @@ const cakeReducer = (state = initialCakeState, action) => {
   }
 };
 
-// ice cream state and reducer
+// ice-cream state and reducer
 const initialIceCreamState = {
   numOfIceCream: 20,
 };
@@ -82,22 +84,27 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
   }
 };
 
+// root reducer to combine states and reducers together
 const rootReducer = combineReducers({
   cakes: cakeReducer,
   iceCream: iceCreamReducer,
 });
 
+// store / state
 const store = createStore(rootReducer);
 
-// console.log("initial state: ", store.getState());
+// store subscription
 const storeUnsubscribe = store.subscribe(() => {
   console.log(store.getState());
 });
 
+// actions binding
 const actions = bindActionCreators(
   { orderCake, restockCake, orderIceCream, restockIceCream },
   store.dispatch
 );
+
+// dispatch binned actions
 actions.orderCake();
 actions.orderCake();
 actions.orderCake();
@@ -107,4 +114,5 @@ actions.orderIceCream();
 actions.orderIceCream();
 actions.restockIceCream(5);
 
+// unsubscribe store
 storeUnsubscribe();
