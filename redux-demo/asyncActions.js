@@ -73,7 +73,6 @@ const reducer = (state = initialState, action) => {
 /* 
   COMMENT: helper thunk functions
 */
-
 const fetchUsers = async (dispatch) => {
   dispatch(fetchUserRequest());
 
